@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Index</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+</head>
+<body>
+<a href="/index">Home</a>
+<p th:text="'Active discounts'"></p>
+<table>
+    <thead>
+    <tr>
+        <td>DiscountCode</td>
+        <td>DiscountType</td>
+        <td>Amount</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="discounts : ${discounts}">
+        <td><span th:text="${discounts.discountCode}"></span></td>
+        <td><span th:text="${discounts.discountType}"></span></td>
+        <td><span th:text="${discounts.amount}"></span></td>
+    </tr>
+    </tbody>
+</table>
+
+<br/>
+<h2>Remove discount applied:</h2>
+<form action="#" th:action="@{/removeDiscount}" method="post">
+    <input type="text" name="code" placeholder="Enter discount code"/><br/>
+    <button type="submit">Remove</button>
+</form>
+
+<br/>
+<p th:text="${removeMessage}"></p>
+<h2>Add discount:</h2>
+<form action="#" th:action="@{/addDiscount}" method="post">
+    <label>Code:</label>
+    <input type="text" name="code"/><br/>
+    <label>Type</label>
+    <select name="type">
+        <option value="1">Percentage</option>
+        <option value="2">Fixed</option>
+        <option value="3">Earned by fidelity</option>
+    </select><br/>
+    <label>Amount:</label>
+    <input type="numeric" name="amount" min="0"/><br/>
+    <button type="submit">Add</button>
+</form>
+
+</body>
+</html>
