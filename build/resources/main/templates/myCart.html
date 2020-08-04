@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cart</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+
+<body>
+<a href="/index">Home</a>
+<table>
+    <thead>
+
+    </thead>
+    <tbody>
+    <tr th:if="${cart == null}">
+
+        <td colspan="2"> Your cart is empty!</td>
+
+    </tr>
+    <form action="#" th:action="@{/updateCart}" method="post">
+        <tr th:each="product : ${cart}">
+            <td><span th:text="${product.name}"> Title </span></td>
+            <td><span th:text="${product.price}"> Price </span></td>
+            <td><span th:text="${product.quantity}"> Quantity </span></td>
+            <td>
+                <button name="remove" type="submit" th:value="${product.productID}">X</button>
+            </td>
+        </tr>
+        <p th:if="${cart != null}" th:text="${totalPrice}"></p>
+    </form>
+
+    </tbody>
+</table>
+
+<p th:text="${money}"></p>
+<div th:if="${cart != null}">
+    <h1>Order</h1>
+    <form action="#" th:action="@{/checkDiscount}" method="POST">
+        <input type="text" name="discountCode"/><br/>
+        <p><input type="submit" value="Order"/></p>
+    </form>
+</div>
+</body>
+</html>
